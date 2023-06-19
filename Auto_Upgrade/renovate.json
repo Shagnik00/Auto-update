@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "schedule": [
+     "every hour"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "groupId:artifactId"
+      ],
+      "updateTypes": [
+        "groupId",
+        "artifactId",
+        "version"
+      ],
+      "groupName": "my-group",
+      "matchDatasource": "pom.xml",
+      "automerge": true,
+      "automergeType": "pr",
+      "commitMessagePrefix": "[git commit] ",
+      "commitMessageTopic": "Dependency Updates",
+      "automateUpgrade": true
+    }
+  ]
+}
