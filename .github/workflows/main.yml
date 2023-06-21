@@ -1,0 +1,26 @@
+name: Renovate
+
+on:
+  create:
+    branches:
+      - '*'
+  pull_request:
+    types:
+      - labeled
+    branches:
+      - '*'
+  schedule:
+    - cron: "0 0 * * 0"  # Run every Sunday at midnight (UTC)
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+     
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Add any additional configuration options here
