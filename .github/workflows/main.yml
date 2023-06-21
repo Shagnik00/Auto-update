@@ -1,16 +1,9 @@
 name: Renovate
 
 on:
-  create:
-    branches:
-      - '*'
-  pull_request:
-    types:
-      - labeled
-    branches:
-      - '*'
   schedule:
-    - cron: "0 0 * * 0"  # Run every Sunday at midnight (UTC)
+    - cron: "0 * * * *"
+  workflow_dispatch:
 
 jobs:
   renovate:
@@ -20,7 +13,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-     
+      - name: Set up Java
+        uses: actions/setup-java@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Add any additional configuration options here
+          java-version: '11'
+
+      - name: Install Renovate
+        run: npm install -g renovate
+
+      - name: Run Renovate
+        run: renovate --platform github --token ${{ secrets.GITHUB_TOKEN }} --extends ./renovate.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "Renovate Bot"
+          git config user.email "renovate-bot@example.com"
+          git add .
+          git commit -m "Renovate: Dependency updates"
+          git push origin HEAD
+
