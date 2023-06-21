@@ -1,27 +1,29 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "schedule": [
-     "every hour"
-  ],
-  "packageRules": [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  
+   "packageRules": [
     {
-      "packagePatterns": [
-        "groupId:artifactId"
+      "matchDatasources": [
+        "maven"
       ],
-      "updateTypes": [
-        "groupId",
-        "artifactId",
-        "version"
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+       
+      ]
+      }
       ],
-      "groupName": "my-group",
-      "matchDatasource": "pom.xml",
-      "automerge": true,
-      "automergeType": "pr",
-      "commitMessagePrefix": "[git commit] ",
-      "commitMessageTopic": "Dependency Updates",
-      "automateUpgrade": true
+      "platform": "github",
+  "repositories": [
+    {
+      "repository": "https://github.com/Anranjini/updateversion.git",
+      "depName": "org.springframework.boot:spring-boot-starter-parent",
+      "versioning": "range",
+      "rangeStrategy": "bump",
+      "range": "[1.0.0,3.0.0)",
+      "packageFiles": ["pom.xml"]
     }
   ]
 }
