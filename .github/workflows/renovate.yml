@@ -1,6 +1,14 @@
 name: Renovate
-
 on:
+  create:
+    branches:
+      - '*'
+  pull_request:
+    types:
+      - labeled
+    branches:
+      - '*'
+
   schedule:
     - cron: "*/1 * * * *"
 
